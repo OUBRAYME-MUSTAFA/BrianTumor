@@ -3,159 +3,202 @@
 <!-- Test: Typical fullscreen usage; autoload an image and overlay. -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-<!-- CSS -->
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/toolbar.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/menu.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/dialog.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/utilities/nojs.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/utilities/unsupported.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/viewer/viewer.css') }}">
-<!-- js  -->
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/sample-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/talairach-atlas-image.js') }}"></script>
-<script src= "{{url_for('static', filename='js/data/talairach-atlas.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/base64-binary.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/bowser.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/daikon.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/nifti-reader.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/jquery.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/numerics.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/pako-inflate.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/gl-matrix.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/gifti-reader.js') }}"></script>
-<script src= "{{url_for('static', filename='js/lib/GLU.js') }}"></script>
-<script src= "{{url_for('static', filename='js/constants.js') }}"></script>
-<script src= "{{url_for('static', filename='js/utilities/array-utils.js') }}"></script>
-<script src= "{{url_for('static', filename='js/utilities/math-utils.js') }}"></script>
-<script src= "{{url_for('static', filename='js/utilities/object-utils.js') }}"></script>
-<script src= "{{url_for('static', filename='js/utilities/platform-utils.js') }}"></script>
-<script src= "{{url_for('static', filename='js/utilities/string-utils.js') }}"></script>
-<script src= "{{url_for('static', filename='js/utilities/url-utils.js') }}"></script>
-<script src= "{{url_for('static', filename='js/core/coordinate.js') }}"></script>
-<script src= "{{url_for('static', filename='js/core/point.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/header.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/imagedata.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/imagedescription.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/imagedimensions.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/imagerange.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/imagetype.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/nifti/header-nifti.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/dicom/header-dicom.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/orientation.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/transform.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/volume.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/voxeldimensions.js') }}"></script>
-<script src= "{{url_for('static', filename='js/volume/voxelvalue.js') }}"></script>
-<script src= "{{url_for('static', filename='js/surface/surface.js') }}"></script>
-<script src= "{{url_for('static', filename='js/surface/surface-gifti.js') }}"></script>
-<script src= "{{url_for('static', filename='js/surface/surface-mango.js') }}"></script>
-<script src= "{{url_for('static', filename='js/surface/surface-vtk.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/dialog.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/menu.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/menuitem.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/menuitemcheckbox.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/menuitemradiobutton.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/menuitemfilechooser.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/menuitemrange.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/menuitemslider.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/menuitemspacer.js') }}"></script>
-<script src= "{{url_for('static', filename='js/ui/toolbar.js') }}"></script>
-<script src= "{{url_for('static', filename='js/viewer/atlas.js') }}"></script>
-<script src= "{{url_for('static', filename='js/viewer/colortable.js') }}"></script>
-<script src= "{{url_for('static', filename='js/viewer/display.js') }}"></script>
-<script src= "{{url_for('static', filename='js/viewer/preferences.js') }}"></script>
-<script src= "{{url_for('static', filename='js/viewer/screenslice.js') }}"></script>
-<script src= "{{url_for('static', filename='js/viewer/screensurface.js') }}"></script>
-<script src= "{{url_for('static', filename='js/viewer/screenvol.js') }}"></script>
-<script src= "{{url_for('static', filename='js/viewer/viewer.js') }}"></script>
-<script src= "{{url_for('static', filename='js/main.js') }}"></script>
-<!-- JS debug end -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    /* DO NOT EDIT (start) -- papayaLoadableImages is generated by papaya-builder and is here for debugging purposes only */
-    var papayaLoadableImages = [
-        {nicename: "Sample Image", name: "sample_image", url: "data/sample_image.nii.gz"},
-        {nicename: "Atlas", name:"Talairach_labels_1mm", url: "data/Talairach_labels_1mm.nii.gz", hide:true}
-    ];
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/toolbar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/dialog.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/utilities/nojs.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/utilities/unsupported.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/viewer/viewer.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- js  -->
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/talairach-atlas-image.js') }}"></script>
+    <script src="{{url_for('static', filename='js/data/talairach-atlas.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/base64-binary.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/bowser.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/daikon.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/nifti-reader.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/jquery.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/numerics.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/pako-inflate.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/gl-matrix.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/gifti-reader.js') }}"></script>
+    <script src="{{url_for('static', filename='js/lib/GLU.js') }}"></script>
+    <script src="{{url_for('static', filename='js/constants.js') }}"></script>
+    <script src="{{url_for('static', filename='js/utilities/array-utils.js') }}"></script>
+    <script src="{{url_for('static', filename='js/utilities/math-utils.js') }}"></script>
+    <script src="{{url_for('static', filename='js/utilities/object-utils.js') }}"></script>
+    <script src="{{url_for('static', filename='js/utilities/platform-utils.js') }}"></script>
+    <script src="{{url_for('static', filename='js/utilities/string-utils.js') }}"></script>
+    <script src="{{url_for('static', filename='js/utilities/url-utils.js') }}"></script>
+    <script src="{{url_for('static', filename='js/core/coordinate.js') }}"></script>
+    <script src="{{url_for('static', filename='js/core/point.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/header.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/imagedata.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/imagedescription.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/imagedimensions.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/imagerange.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/imagetype.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/nifti/header-nifti.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/dicom/header-dicom.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/orientation.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/transform.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/volume.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/voxeldimensions.js') }}"></script>
+    <script src="{{url_for('static', filename='js/volume/voxelvalue.js') }}"></script>
+    <script src="{{url_for('static', filename='js/surface/surface.js') }}"></script>
+    <script src="{{url_for('static', filename='js/surface/surface-gifti.js') }}"></script>
+    <script src="{{url_for('static', filename='js/surface/surface-mango.js') }}"></script>
+    <script src="{{url_for('static', filename='js/surface/surface-vtk.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/dialog.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/menu.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/menuitem.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/menuitemcheckbox.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/menuitemradiobutton.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/menuitemfilechooser.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/menuitemrange.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/menuitemslider.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/menuitemspacer.js') }}"></script>
+    <script src="{{url_for('static', filename='js/ui/toolbar.js') }}"></script>
+    <script src="{{url_for('static', filename='js/viewer/atlas.js') }}"></script>
+    <script src="{{url_for('static', filename='js/viewer/colortable.js') }}"></script>
+    <script src="{{url_for('static', filename='js/viewer/display.js') }}"></script>
+    <script src="{{url_for('static', filename='js/viewer/preferences.js') }}"></script>
+    <script src="{{url_for('static', filename='js/viewer/screenslice.js') }}"></script>
+    <script src="{{url_for('static', filename='js/viewer/screensurface.js') }}"></script>
+    <script src="{{url_for('static', filename='js/viewer/screenvol.js') }}"></script>
+    <script src="{{url_for('static', filename='js/viewer/viewer.js') }}"></script>
+    <script src="{{url_for('static', filename='js/main.js') }}"></script>
+    <!-- JS debug end -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        /* DO NOT EDIT (start) -- papayaLoadableImages is generated by papaya-builder and is here for debugging purposes only */
+        var papayaLoadableImages = [
+            { nicename: "Sample Image", name: "sample_image", url: "data/sample_image.nii.gz" },
+            { nicename: "Atlas", name: "Talairach_labels_1mm", url: "data/Talairach_labels_1mm.nii.gz", hide: true }
+        ];
     /* DO NOT EDIT (end) */
-</script>
+    </script>
 
-<!-- **************************************************************************************************************************************************************** -->
-<!-- **************************************************************************************************************************************************************** -->
-<!-- **************************************************************************************************************************************************************** -->
-<!-- **************************************************************************************************************************************************************** -->
-<!-- **************************************************************************************************************************************************************** -->
-  
+    <!-- **************************************************************************************************************************************************************** -->
+    <!-- **************************************************************************************************************************************************************** -->
+    <!-- **************************************************************************************************************************************************************** -->
+    <!-- **************************************************************************************************************************************************************** -->
+    <!-- **************************************************************************************************************************************************************** -->
 
-<!-- **************************************************************************************************************************************************************** -->
-<!-- **************************************************************************************************************************************************************** -->
-<!-- **************************************************************************************************************************************************************** -->
-<!-- **************************************************************************************************************************************************************** -->
-    
-<title>Papaya</title>
+
+    <!-- **************************************************************************************************************************************************************** -->
+    <!-- **************************************************************************************************************************************************************** -->
+    <!-- **************************************************************************************************************************************************************** -->
+    <!-- **************************************************************************************************************************************************************** -->
+
+    <title>Papaya</title>
 </head>
+
 <body>
 
+    <div class="frame">
+        <form id="imageForm" enctype="multipart/form-data" action="http://127.0.0.1:5000/upload" method="post">
+        <div class="center1">
+            <div class = "pp">
+            <div class="title">
+                <h1>Fixed Image</h1>
+            </div>
+            <div class="papaya"  data-params="params"></div>
+            <div class="dropzone">
+                <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                <input type="file" class="upload-input" id="ImageFixed" name="ImageFixed" accept=".nii*" multiple>
+            </div>
     
-    <div class="container-fluid">
-        <!-- <form id="imageForm" enctype="multipart/form-data" action="http://127.0.0.1:5000/upload" method="post"> -->
-            <form id="imageForm" enctype="multipart/form-data" action="http://127.0.0.1:5000/upload" method="post">
+        </div>
+        </div>
+        <div class="center2">
+            <div class = "pp">
+            <div class="title">
+                <h1>Moving Image</h1>
+            </div>
+            
+            <div class="papaya"  data-params="params"></div>
+            
+            <div class="dropzone">
+                
+                <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                <input type="file" class="upload-input" id="ImageMoving" name="ImageMoving" accept=".nii*" multiple>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn" name="uploadbutton">Submit</button>
+    </form>
+            <!-- <button type="button" class="btn" name="uploadbutton">Upload file</button> -->
+        </div>
+        
+    </div>
+
+    <!-- original pen: https://codepen.io/roydigerhund/pen/ZQdbeN  -->
+    
+    <!-- NO JS ADDED YET -->
+    <!-- <div class="container-fluid">
+        <form id="imageForm" enctype="multipart/form-data" action="http://127.0.0.1:5000/upload" method="post">
             <div class="row">
                 <div class="col-lg-4">
+                    <div id="fix_papaya"></div>
                     <div class="papaya" data-params="params"></div>
                     <input type="file" id="ImageFixed" name="ImageFixed" accept=".nii*" multiple>
                 </div>
                 <div class="col-lg-4">
+                    
                     <div class="papaya" data-params="params"></div>
                     <input type="file" id="ImageMoving" name="ImageMoving" accept=".nii*" multiple>
                 </div>
             </div>
             <button type="submit">Submit</button>
         </form>
-    </div>
-    
+    </div> -->
+<!--  -->
+
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#submitButton').click(function(event) {
+        $(document).ready(function () {
+            $('#submitButton').click(function (event) {
                 event.preventDefault(); // Prevent the default form submission behavior
-                
                 var formElement = $('#imageForm')[0];
                 var formData = new FormData(formElement);
-                
+
                 $.ajax({
                     url: '/upload',
                     type: 'POST',
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function(response) {
+                    success: function (response) {
                         // Success
                         console.log('File upload successful!');
                         // Process the response as needed
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Error
                         console.log('File upload failed!');
                     }
@@ -189,24 +232,27 @@
             });
         });
     </script> -->
-    
+
     <script type="text/javascript">
-        function handleFileSelect(evt, viewerId) {
-            var params = [];
-            params["files"] = evt.target.files;
-            // params["kioskMode"] = true;
-            // params["orthogonal"] = true;
-            // params["combineParametric"] = true;
-            papaya.Container.resetViewer(viewerId, params);
-        }
+        $(document).ready(function () {
+            function handleFileSelect(evt, viewerId) {
+                var params = [];
+                params["files"] = evt.target.files;
+                // params["kioskMode"] = true;
+                // params["orthogonal"] = true;
+                // params["combineParametric"] = true;
+                papaya.Container.resetViewer(viewerId, params);
+            }
 
-        document.getElementById('ImageFixed').addEventListener('change', function (evt) {
-            handleFileSelect(evt, 0); // Pass viewerId 0 for the first viewer
-        }, false);
+            document.getElementById('ImageFixed').addEventListener('change', function (evt) {
+                handleFileSelect(evt, 0); // Pass viewerId 0 for the first viewer
+            }, false);
 
-        document.getElementById('ImageMoving').addEventListener('change', function (evt) {
-            handleFileSelect(evt, 1); // Pass viewerId 1 for the second viewer
-        }, false);
+            document.getElementById('ImageMoving').addEventListener('change', function (evt) {
+                // $('#mov_papaya').html('<div class="papaya" data-params="params"></div>');
+                handleFileSelect(evt, 1); // Pass viewerId 1 for the second viewer
+            }, false);
+        });
     </script>
 </body>
 
