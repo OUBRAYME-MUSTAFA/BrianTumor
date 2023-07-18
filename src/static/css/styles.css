@@ -27,7 +27,7 @@
 	border-radius: 3px;
 	box-shadow: 8px 10px 15px 0 rgba(0, 0, 0, 0.2);
 	background: #fff;
-	display: flex;
+	/* display: flex; */
 	align-items: center;
 	justify-content: space-evenly;
 	flex-direction: column;
@@ -42,10 +42,23 @@
 	border-radius: 3px;
 	box-shadow: 8px 10px 15px 0 rgba(0, 0, 0, 0.2);
 	background: #fff;
-	display: flex;
+	/* display: flex; */
 	align-items: center;
 	justify-content: space-evenly;
 	flex-direction: column;
+}
+
+#fix{
+	display: none;
+}
+#moving{
+	display: none;
+}
+#fixZone{
+	display: block;
+}
+#movingZone{
+	display: block;
 }
 
 .title {
@@ -65,8 +78,9 @@
 
 .dropzone {
     position: relative;
+	left:40%;
 	width: 100px;
-	height: 80px;
+	height: 100px;
 	border: 1px dashed #999;
 	border-radius: 3px;
 	text-align: center;
