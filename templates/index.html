@@ -24,17 +24,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-    <!-- **************************************************************************************************************************************************************** -->
-    <!-- **************************************************************************************************************************************************************** -->
-    <!-- **************************************************************************************************************************************************************** -->
-    <!-- **************************************************************************************************************************************************************** -->
-    <!-- **************************************************************************************************************************************************************** -->
-
-
-    <!-- **************************************************************************************************************************************************************** -->
-    <!-- **************************************************************************************************************************************************************** -->
-    <!-- **************************************************************************************************************************************************************** -->
-    <!-- **************************************************************************************************************************************************************** -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
+    <!-- * * ************************************* * * ********************** * * ****************** * * ************************************************************************* * * -->
 
     <title>Papaya</title>
 </head>
@@ -42,7 +40,7 @@
 <body>
 
     <div class="frame">
-        <form id="imageForm" enctype="multipart/form-data" action="http://127.0.0.1:5000/upload" method="post">
+        <form id="imageForm" enctype="multipart/form-data">
             <div class="center1">
                 <div class="card">
                     <div class="card-header title">
@@ -68,7 +66,7 @@
                     <div id="moving" class="card">
                         <div class="papaya" data-params="params"></div>
                     </div>
-    
+
 
                     <div class="dropzone">
 
@@ -78,12 +76,33 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn" name="uploadbutton">Submit</button>
+            <button type="submit" class="btn" id="uploadbutton" name="uploadbutton">Submit</button>
         </form>
         <!-- <button type="button" class="btn" name="uploadbutton">Upload file</button> -->
     </div>
-
+    <div class="center3">
+        <div class="card">
+            <div class="card-header title">
+                <h1>Predict Image</h1>
+            </div>
+            <div id="Predict" class="card">
+                <div class="papaya" data-params="params"></div>
+            </div>
+        </div>
     </div>
+
+    <!-- 
+<div class="center3">
+                <div class="card">
+                    <div class="card-header title">
+                        <h1>moved Image</h1>
+                    </div>
+                    <div id="moving" class="card">
+                        <div class="papaya" data-params="params"></div>
+                    </div>
+                </div>
+            </div>
+    </div> -->
 
     <!-- original pen: https://codepen.io/roydigerhund/pen/ZQdbeN  -->
 
@@ -109,10 +128,20 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#submitButton').click(function (event) {
+            function upload_moved(file) {
+                var params = [];
+                params["files"] = file;
+                console.log("yessss i am inside of it")
+                // params["kioskMode"] = true;
+                // params["orthogonal"] = true;
+                // params["combineParametric"] = true;
+                papaya.Container.resetViewer(0, params);
+            }
+            $('#uploadbutton').click(function (event) {
                 event.preventDefault(); // Prevent the default form submission behavior
                 var formElement = $('#imageForm')[0];
                 var formData = new FormData(formElement);
+                console.log("i am here")
 
                 $.ajax({
                     url: '/upload',
@@ -120,10 +149,64 @@
                     data: formData,
                     processData: false,
                     contentType: false,
+
                     success: function (response) {
-                        // Success
-                        console.log('File upload successful!');
-                        // Process the response as needed
+                        $.ajax({
+                            url: '/get_registered_image_json', // The Flask route to get the JSON data
+                            method: 'GET',
+                            success: function (response) {
+                                console.log("i got the response")
+                                // Parse the JSON response
+                                var imageData = JSON.parse(response);
+
+                                // Convert the base64-encoded file data to binary data
+                                var binaryData = atob(imageData.data);
+
+                                // Convert the binary data to a Blob
+                                var blob = new Blob([new Uint8Array(binaryData.length).map((_, i) => binaryData.charCodeAt(i))], { type: 'application/octet-stream' });
+
+                                // Create a File object (Optional: Set the desired filename for the File)
+                                var file = new File([blob], imageData.filename, { type: 'application/octet-stream', lastModified: Date.now() });
+                                console.log(file)
+                                saveAs(file, imageData.filename);
+                                // Now, 'file' is a File object that you can use as needed (e.g., display it in the Papaya viewer)
+                                // Assuming Papaya's viewer.loadImage() function can handle the File object directly
+                                // registeredViewer.viewer.loadImage(file);
+                                upload_moved(file)
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching registered image JSON:', error);
+                            }
+                        });
+
+                        // console.log('Greate !!!!!!!!!!!!!!!');
+                        // fetch('/get_image')
+                        //     .then(response => response.blob()) // Convert the response to a Blob
+                        //     .then(blobData => {
+                        //         var reader = new FileReader();
+                        //         reader.onload = function () {
+                        //             var registeredImageData = reader.result.files;
+                        //             console.log("I am inside reader")
+                        //             console.log(reader.result)
+                        //             var binaryData = atob(reader.result.split(',')[1]);
+
+                        //             // Create a Blob object from the binary data
+                        //             var blob = new Blob([new Uint8Array(binaryData.length).map((_, i) => binaryData.charCodeAt(i))], { type: 'application/octet-stream' });
+
+                        //             // Create a File object (Optional: Set the desired filename for the File)
+                        //             var file = new File([blob], 'BraTS2021_00000_flair.nii.gz', { type: 'application/octet-stream', lastModified: Date.now() });
+                        //             console.log("Done with convert")
+                        //             console.log(file)
+                        //             // Update the registered viewer with the new image data
+                        //             upload_moved(file)
+                        //             // papayaContainers[2].viewer.loadImage(file);
+                        //         };
+                        //         reader.readAsDataURL(blobData);
+                        //     })
+                        //     .catch(error => {
+                        //         console.error('Error fetching registered image:', error);
+                        //     });
+
                     },
                     error: function (xhr, status, error) {
                         // Error
@@ -169,6 +252,16 @@
             function handleFileSelect(evt, viewerId) {
                 var params = [];
                 params["files"] = evt.target.files;
+                console.log(evt.target.files)
+                // params["kioskMode"] = true;
+                // params["orthogonal"] = true;
+                // params["combineParametric"] = true;
+                papaya.Container.resetViewer(viewerId, params);
+            }
+            function FileSelect(viewerId) {
+                var params = [];
+                params["images"] = ["uploads/fixed/BraTS2021_00000_flair.nii.gz"];
+                params["worldSpace"] = true;
                 // params["kioskMode"] = true;
                 // params["orthogonal"] = true;
                 // params["combineParametric"] = true;
@@ -177,6 +270,11 @@
             function myFunction(x) {
                 x.css("display", "block")
             }
+            // if ("{{v1}}"!=""){
+            //     console.log("noooooooonhhhe")
+            //     myFunction($("#fix"));
+            //     FileSelect("{{v1}}", 0)
+            // }
             document.getElementById('ImageFixed').addEventListener('change', function (evt) {
                 myFunction($("#fix"));
                 handleFileSelect(evt, 0); // Pass viewerId 0 for the first                 
@@ -189,6 +287,20 @@
             }, false);
         });
     </script>
+
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
+    <!-- ************************************************************************************************************* -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- js  -->
     <script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
@@ -261,6 +373,7 @@
     <script src="{{url_for('static', filename='js/viewer/screenvol.js') }}"></script>
     <script src="{{url_for('static', filename='js/viewer/viewer.js') }}"></script>
     <script src="{{url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{url_for('static', filename='js/FileSaver.js') }}"></script>
     <!-- JS debug end -->
 
     <script type="text/javascript">

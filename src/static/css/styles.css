@@ -7,7 +7,7 @@
     right: 5%;
     bottom: 5%;
 	width: 1400px;
-	height: 800px;
+	height: 1000px;
 	margin-top: -50px;
 	border-radius: 5px;
 	box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
@@ -36,6 +36,21 @@
 	position: absolute;
 	top: 40%;
 	left: 75%;
+	transform: translate(-50%, -50%);
+	width: 600px;
+	height: 550px;
+	border-radius: 3px;
+	box-shadow: 8px 10px 15px 0 rgba(0, 0, 0, 0.2);
+	background: #fff;
+	/* display: flex; */
+	align-items: center;
+	justify-content: space-evenly;
+	flex-direction: column;
+}
+.center3 {
+	position: absolute;
+	top: 100%;
+	left: 25%;
 	transform: translate(-50%, -50%);
 	width: 600px;
 	height: 550px;

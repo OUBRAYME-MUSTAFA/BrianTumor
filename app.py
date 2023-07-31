@@ -1,5 +1,7 @@
+import base64
+import json
 import os
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file , g
 import imageio
 import nibabel as nib
 import numpy as np
@@ -8,12 +10,19 @@ import matplotlib.pyplot as plt
 import io
 
 app = Flask(__name__, static_folder="src/static")
+PATH = '';
+name  ='';
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
+@app.route('/get_image', methods=['GET'])
+def GETG():
+
+    print('***********' ,PATH)
+    return  send_file(PATH, as_attachment=True)
 
 @app.route('/upload', methods=['POST'])
 def upload_files():
@@ -21,16 +30,72 @@ def upload_files():
         return 'Missing files part in the request.'
     
     file = request.files['ImageFixed']
-    file.save(os.path.join('uploads/Fixed', file.filename))
-    ff = nib.load(os.path.join('uploads/Fixed', file.filename))
+    file.save(os.path.join('templates/uploads/Fixed', file.filename))
+    ff = nib.load(os.path.join('templates/uploads/Fixed', file.filename))
     print(ff.shape[2])
 
     file1 = request.files['ImageMoving']
-    file1.save(os.path.join('uploads/Moving', file1.filename))
-    ff1 = nib.load(os.path.join('uploads/Moving', file1.filename))
+    file1.save(os.path.join('templates/uploads/Moving', file1.filename))
+    ff1 = nib.load(os.path.join('templates/uploads/Moving', file1.filename))
     print(ff1.shape[2])
+    global PATH
+    global name 
+    PATH = os.path.join('templates/uploads/Moving', file1.filename)
+    name = file1.filename
+    print('-----------------------------------',PATH)
+    return "" , 200
 
-    return '',200
+@app.route('/get_registered_image_json', methods=['GET'])
+def get_registered_image_json():
+    # Load the .nii.gz file from the server (replace 'path_to_image' with the actual path)
+    image_path = PATH
+    # Read the file data as bytes
+    with open(image_path, 'rb') as f:
+        image_data = f.read()
+
+    # Encode the file data as a base64 string
+    # base64_data = image_data.encode('base64').replace('\n', '')
+    base64_data = base64.b64encode(image_data).decode('utf-8')  # Convert bytes to str
+
+
+    # Create a JSON object with the file data
+    response_json = {
+        'filename': name,
+        'data': base64_data
+    }
+    print ( "goooooooooooooooooooooooood")
+    # Send the JSON response
+    return json.dumps(response_json)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # nifti_data_base64 = base64.b64encode(ff1).decode('utf-8')
+    # print(nifti_data_base64)
+    # return jsonify(processed_data=file1.filename)
+
+
+    # return send_file(ff1, mimetype='application/gzip')
+    # v1 = file.filename
+    # v2 =  'bel3id2'
+    # v3 =  'bel3id3'
+
+    # return render_template('index.html', v1=v1 , v2=v2, v3=v3)
 
 
 # @app.route('/load', methods=['POST'])
