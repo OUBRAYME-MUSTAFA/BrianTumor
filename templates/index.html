@@ -76,66 +76,37 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn" id="uploadbutton" name="uploadbutton">Submit</button>
-        </form>
-        <!-- <button type="button" class="btn" name="uploadbutton">Upload file</button> -->
-    </div>
-    <div class="center3">
-        <div class="card">
-            <div class="card-header title">
-                <h1>Predict Image</h1>
-            </div>
-            <div id="Predict" class="card">
-                <div class="papaya" data-params="params"></div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 
-<div class="center3">
+            <!-- <button type="button" class="btn" name="uploadbutton">Upload file</button> -->
+            <div class="center3">
                 <div class="card">
                     <div class="card-header title">
-                        <h1>moved Image</h1>
+                        <h1>Predict Image</h1>
                     </div>
-                    <div id="moving" class="card">
+                    <div id="Predict" class="card">
                         <div class="papaya" data-params="params"></div>
                     </div>
                 </div>
             </div>
-    </div> -->
-
-    <!-- original pen: https://codepen.io/roydigerhund/pen/ZQdbeN  -->
-
-    <!-- NO JS ADDED YET -->
-    <!-- <div class="container-fluid">
-        <form id="imageForm" enctype="multipart/form-data" action="http://127.0.0.1:5000/upload" method="post">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div id="fix_papaya"></div>
-                    <div class="papaya" data-params="params"></div>
-                    <input type="file" id="ImageFixed" name="ImageFixed" accept=".nii*" multiple>
-                </div>
-                <div class="col-lg-4">
-                    
-                    <div class="papaya" data-params="params"></div>
-                    <input type="file" id="ImageMoving" name="ImageMoving" accept=".nii*" multiple>
-                </div>
-            </div>
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn" id="uploadbutton" name="uploadbutton">Submit</button>
         </form>
-    </div> -->
-    <!--  -->
+    </div>
+
 
     <script type="text/javascript">
         $(document).ready(function () {
             function upload_moved(file) {
+                var filesList = new DataTransfer();
+                filesList.items.add(file);
+
                 var params = [];
-                params["files"] = file;
-                console.log("yessss i am inside of it")
+                params["files"] = filesList.files;
+                console.log("yessss i am inside of it3")
+                console.log(params)
                 // params["kioskMode"] = true;
                 // params["orthogonal"] = true;
                 // params["combineParametric"] = true;
-                papaya.Container.resetViewer(0, params);
+                papaya.Container.resetViewer(2, params);
             }
             $('#uploadbutton').click(function (event) {
                 event.preventDefault(); // Prevent the default form submission behavior
@@ -166,13 +137,13 @@
                                 var blob = new Blob([new Uint8Array(binaryData.length).map((_, i) => binaryData.charCodeAt(i))], { type: 'application/octet-stream' });
 
                                 // Create a File object (Optional: Set the desired filename for the File)
-                                var file = new File([blob], imageData.filename, { type: 'application/octet-stream', lastModified: Date.now() });
-                                console.log(file)
-                                saveAs(file, imageData.filename);
+                                var file_pred = new File([blob], imageData.filename, { type: 'application/octet-stream', lastModified: Date.now() });
+                                console.log(file_pred)
+                                saveAs(file_pred, imageData.filename);
                                 // Now, 'file' is a File object that you can use as needed (e.g., display it in the Papaya viewer)
                                 // Assuming Papaya's viewer.loadImage() function can handle the File object directly
                                 // registeredViewer.viewer.loadImage(file);
-                                upload_moved(file)
+                                upload_moved(file_pred)
                             },
                             error: function (xhr, status, error) {
                                 console.error('Error fetching registered image JSON:', error);
@@ -220,53 +191,20 @@
 
 
     </script>
-    <!-- <script type="text/javascript">
-        document.getElementById('submitButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the default form submission behavior
-    
-            var formElement = document.getElementById('imageForm');
-            var formData = new FormData(formElement);
-    
-            fetch('http://127.0.0.1:5000/upload', {
-                method: 'POST',
-                body: formData
-            })
-            .then(function(response) {
-                if (response.ok) {
-                    // Success
-                    console.log('File upload successful!');
-                    // Process the response as needed
-                } else {
-                    // Error
-                    console.log('File upload failed!');
-                }
-            })
-            .catch(function(error) {
-                console.log('An error occurred:', error);
-            });
-        });
-    </script> -->
-
     <script type="text/javascript">
         $(document).ready(function () {
             function handleFileSelect(evt, viewerId) {
                 var params = [];
                 params["files"] = evt.target.files;
                 console.log(evt.target.files)
+                console.log("yessss i am inside of it")
+                console.log(params)
                 // params["kioskMode"] = true;
                 // params["orthogonal"] = true;
                 // params["combineParametric"] = true;
                 papaya.Container.resetViewer(viewerId, params);
             }
-            function FileSelect(viewerId) {
-                var params = [];
-                params["images"] = ["uploads/fixed/BraTS2021_00000_flair.nii.gz"];
-                params["worldSpace"] = true;
-                // params["kioskMode"] = true;
-                // params["orthogonal"] = true;
-                // params["combineParametric"] = true;
-                papaya.Container.resetViewer(viewerId, params);
-            }
+
             function myFunction(x) {
                 x.css("display", "block")
             }
