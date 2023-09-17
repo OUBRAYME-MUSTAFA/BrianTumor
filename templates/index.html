@@ -93,138 +93,6 @@
     </div>
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            function upload_moved(file) {
-                var filesList = new DataTransfer();
-                filesList.items.add(file);
-
-                var params = [];
-                params["files"] = filesList.files;
-                console.log("yessss i am inside of it3")
-                console.log(params)
-                // params["kioskMode"] = true;
-                // params["orthogonal"] = true;
-                // params["combineParametric"] = true;
-                papaya.Container.resetViewer(2, params);
-            }
-            $('#uploadbutton').click(function (event) {
-                event.preventDefault(); // Prevent the default form submission behavior
-                var formElement = $('#imageForm')[0];
-                var formData = new FormData(formElement);
-                console.log("i am here")
-
-                $.ajax({
-                    url: '/upload',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-
-                    success: function (response) {
-                        $.ajax({
-                            url: '/get_registered_image_json', // The Flask route to get the JSON data
-                            method: 'GET',
-                            success: function (response) {
-                                console.log("i got the response")
-                                // Parse the JSON response
-                                var imageData = JSON.parse(response);
-
-                                // Convert the base64-encoded file data to binary data
-                                var binaryData = atob(imageData.data);
-
-                                // Convert the binary data to a Blob
-                                var blob = new Blob([new Uint8Array(binaryData.length).map((_, i) => binaryData.charCodeAt(i))], { type: 'application/octet-stream' });
-
-                                // Create a File object (Optional: Set the desired filename for the File)
-                                var file_pred = new File([blob], imageData.filename, { type: 'application/octet-stream', lastModified: Date.now() });
-                                console.log(file_pred)
-                                saveAs(file_pred, imageData.filename);
-                                // Now, 'file' is a File object that you can use as needed (e.g., display it in the Papaya viewer)
-                                // Assuming Papaya's viewer.loadImage() function can handle the File object directly
-                                // registeredViewer.viewer.loadImage(file);
-                                upload_moved(file_pred)
-                            },
-                            error: function (xhr, status, error) {
-                                console.error('Error fetching registered image JSON:', error);
-                            }
-                        });
-
-                        // console.log('Greate !!!!!!!!!!!!!!!');
-                        // fetch('/get_image')
-                        //     .then(response => response.blob()) // Convert the response to a Blob
-                        //     .then(blobData => {
-                        //         var reader = new FileReader();
-                        //         reader.onload = function () {
-                        //             var registeredImageData = reader.result.files;
-                        //             console.log("I am inside reader")
-                        //             console.log(reader.result)
-                        //             var binaryData = atob(reader.result.split(',')[1]);
-
-                        //             // Create a Blob object from the binary data
-                        //             var blob = new Blob([new Uint8Array(binaryData.length).map((_, i) => binaryData.charCodeAt(i))], { type: 'application/octet-stream' });
-
-                        //             // Create a File object (Optional: Set the desired filename for the File)
-                        //             var file = new File([blob], 'BraTS2021_00000_flair.nii.gz', { type: 'application/octet-stream', lastModified: Date.now() });
-                        //             console.log("Done with convert")
-                        //             console.log(file)
-                        //             // Update the registered viewer with the new image data
-                        //             upload_moved(file)
-                        //             // papayaContainers[2].viewer.loadImage(file);
-                        //         };
-                        //         reader.readAsDataURL(blobData);
-                        //     })
-                        //     .catch(error => {
-                        //         console.error('Error fetching registered image:', error);
-                        //     });
-
-                    },
-                    error: function (xhr, status, error) {
-                        // Error
-                        console.log('File upload failed!');
-                    }
-                });
-            });
-        });
-
-
-
-
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            function handleFileSelect(evt, viewerId) {
-                var params = [];
-                params["files"] = evt.target.files;
-                console.log(evt.target.files)
-                console.log("yessss i am inside of it")
-                console.log(params)
-                // params["kioskMode"] = true;
-                // params["orthogonal"] = true;
-                // params["combineParametric"] = true;
-                papaya.Container.resetViewer(viewerId, params);
-            }
-
-            function myFunction(x) {
-                x.css("display", "block")
-            }
-            // if ("{{v1}}"!=""){
-            //     console.log("noooooooonhhhe")
-            //     myFunction($("#fix"));
-            //     FileSelect("{{v1}}", 0)
-            // }
-            document.getElementById('ImageFixed').addEventListener('change', function (evt) {
-                myFunction($("#fix"));
-                handleFileSelect(evt, 0); // Pass viewerId 0 for the first                 
-            }, false);
-
-            document.getElementById('ImageMoving').addEventListener('change', function (evt) {
-                myFunction($("#moving"));
-                handleFileSelect(evt, 1); // Pass viewerId 1 for the second 
-
-            }, false);
-        });
-    </script>
 
     <!-- ************************************************************************************************************* -->
     <!-- ************************************************************************************************************* -->
@@ -312,6 +180,7 @@
     <script src="{{url_for('static', filename='js/viewer/viewer.js') }}"></script>
     <script src="{{url_for('static', filename='js/main.js') }}"></script>
     <script src="{{url_for('static', filename='js/FileSaver.js') }}"></script>
+    <script src="{{url_for('static', filename='js/reg.js') }}"></script>
     <!-- JS debug end -->
 
     <script type="text/javascript">

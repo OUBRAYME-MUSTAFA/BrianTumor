@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116784872-1"></script>
+
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116784872-1');
+    </script>
+
+    <title>QTIM</title>
+
+    <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+
+    <meta name="description" content="The Quantitative Translational Imaging in Medicine Lab">
+    <meta property="og:description" content="The Quantitative Translational Imaging in Medicine Lab" />
+
+    <meta name="author" content="QTIM" />
+
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+    <!-- BB START-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- First Font Customization -->
+    <!-- Find related css in style.scss line ~286 -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Audiowide|Monoton|Orbitron&display=swap" rel="stylesheet"> -->
+
+    <!-- New font 6/30/2021 -->
+    <!-- Find related css in style.scss line ~286 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;1,300&display=swap"
+        rel="stylesheet">
+
+    <!-- BB END-->
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="alternate" type="application/rss+xml"
+        title="QTIM - The Quantitative Translational Imaging in Medicine Lab" href="/feed.xml" />
+
+    <!-- Favicon -->
+    <link rel=icon type="image/x-icon" href="/favicon-32x32.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/toolbar.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ui/dialog.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/utilities/nojs.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/utilities/unsupported.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/viewer/viewer.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="wrapper-masthead">
+        <header class="masthead clearfix">
+            <a name="Top"></a>
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top ftco_navbar bg-dark ftco-navbar-light"
+                id="ftco-navbar">
+                <div class="container">
+                    <a class="navbar-brand" href="index2.html"><span class="flaticon-pizza-1 mr-1"></span>PFE<br></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                        aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="oi oi-menu"></span> Menu
+                    </button>
+                    <div class="collapse navbar-collapse" id="ftco-nav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item "><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
+                            <li class="nav-item active"><a href="{{ url_for('registration') }}"
+                                    class="nav-link">Registration</a></li>
+                            <li class="nav-item"><a href="{{ url_for('segmentation')}}"
+                                    class="nav-link">Segmentation</a></li>
+                            <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+        </header>
+    </div>
+
+
+    <div id="main" role="main" class="main">
+        <style>
+        </style>
+
+
+        <div class="ParallaxVideo">
+            <video autoplay muted loop autbuffer playsinline>
+                <source src="{{ url_for('static', filename='video/jays_brain.mp4') }}" type="video/mp4">
+
+                <!-- <source src="./video/jays_brain.mp4" type="video/mp4">
+                <!-- <source src="./video/jays_brain.ogg" type="video/ogg">
+                    <source src="./video/jays_brain.webm" type="video/webm"> -->
+
+            </video>
+
+            <div class="site-info">
+
+                <p>Brain Tumor Voxelmorph Image Registration </p>
+            </div>
+
+
+
+
+        </div>
+
+
+        <div class="wideview">
+            <div class="container">
+                <form id="imageForm" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-4 col-md-2 col-lg-4">
+                            <div class="card">
+                                <div class="card-header title">
+                                    <h1>Fixed image</h1>
+                                </div>
+                                <div id="fix">
+                                    <div class="papaya" data-params="params">
+                                    </div>
+
+                                </div>
+                                <div class=" dropzone">
+                                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                    <input type="file" class="upload-input" id="ImageFixed" name="ImageFixed"
+                                        accept=".nii*" multiple>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-6 col-lg-4">
+                            <div class="card">
+                                <div class="card-header title">
+                                    <h1>Moving image</h1>
+                                </div>
+                                <div id="moving">
+                                    <div class="papaya" data-params="params"></div>
+                                </div>
+                                <div class="dropzone">
+
+                                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                    <input type="file" class="upload-input" id="ImageMoving" name="ImageMoving"
+                                        accept=".nii*" multiple>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-md-6 col-lg-4" id="Predict">
+                            <div class="card">
+                                <div class="card-header title">
+                                    <h1>Predicted image</h1>
+                                </div>
+                                <div>
+                                    <div class="papaya" data-params="params"></div>
+                                </div>
+                                <div class="my-4"></div>
+
+                                <button type=" button" class="btn btn-outline-green" id="dd"
+                                    name="dd">Download</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="my-4"></div>
+                    <!-- <div class="row" id="Predict">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card">
+                                <div class="card-header title">
+                                    <h1>Predicted image</h1>
+                                </div>
+                                <div>
+                                    <div class="papaya" data-params="params"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> -->
+                    <!-- <div class=" ">
+                        <button id="increase_slice" type="button" ">Increase Slice</button>
+                </div> -->
+                    <div class="my-4"></div>
+                    <div class=" ">
+                        <button id="swap_slice" class="papaya-main-swap" type="button" ">Swap Main Slice</button>
+                </div>
+                <div class=" my-4">
+                    </div>
+                    <div class=" row d-flex justify-content-center align-content-center ">
+                        <button type=" submit" class="btn btn-outline-primary" id="uploadbutton"
+                            name="uploadbutton">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- <div class="frame">
+            <form id="imageForm" enctype="multipart/form-data">
+                <div class="center1">
+                    <div class="card">
+                        <div class="card-header title">
+                            <h1>Fixed Image</h1>
+                        </div>
+                        <div id="fix" class="card">
+                            <div class="papaya" data-params="params"></div>
+                        </div>
+    
+                        <div class="dropzone">
+                            <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                            <input type="file" class="upload-input" id="ImageFixed" name="ImageFixed" accept=".nii*"
+                                multiple>
+                        </div>
+                    </div>
+    
+                </div>
+                <div class="center2">
+                    <div class="card">
+                        <div class="card-header title">
+                            <h1>Moving Image</h1>
+                        </div>
+                        <div id="moving" class="card">
+                            <div class="papaya" data-params="params"></div>
+                        </div>
+    
+    
+                        <div class="dropzone">
+    
+                            <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                            <input type="file" class="upload-input" id="ImageMoving" name="ImageMoving" accept=".nii*"
+                                multiple>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="center3">
+                    <div class="card">
+                        <div class="card-header title">
+                            <h1>Predict Image</h1>
+                        </div>
+                        <div id="Predict" class="card">
+                            <div class="papaya" data-params="params"></div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn" id="uploadbutton" name="uploadbutton">Submit</button>
+            </form>
+
+</div> -->
+
+    </div>
+
+
+
+
+
+    <!-- 
+<div class=new_section>
+  <h1>One</h1>
+</div>
+
+<div class=new_section>
+  <h1>Two</h1>
+</div>
+
+<div class=new_section>
+  <h1>Three</h1>
+</div>
+ -->
+
+    <!-- <div class="posts">
+  
+    <article class="post">
+
+      <h1><a href="/Hello-World/">You're up and running!</a></h1>
+
+      <div class="entry">
+        <p>Next you can update your site name, avatar and other options using the _config.yml file in the root of your repository (shown below).</p>
+
+
+      </div>
+
+      <a href="/Hello-World/" class="read-more">Read More</a>
+    </article>
+  
+</div>
+ -->
+    </div>
+
+
+    <footer class="footer">
+        <a href="https://github.com/OUBRAYME-MUSTAFA"><i class="svg-icon github"></i></a>
+        <a href="https://www.linkedin.com/in/mustafa-oubrayme-058238171"><i class="svg-icon linkedin"></i></a>
+        <!-- <a href="https://youtube.com/channel/UCflrd69yRzRqAdk1ZMSSmug"><i class="svg-icon youtube"></i></a> -->
+
+    </footer>
+    </div>
+
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+<!-- BB -->
+
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<!-- ************************************************************************************************************* -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- js  -->
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/sample-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/talairach-atlas-image.js') }}"></script>
+<script src="{{url_for('static', filename='js/data/talairach-atlas.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/base64-binary.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/bowser.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/daikon.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/nifti-reader.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/jquery.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/numerics.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/pako-inflate.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/gl-matrix.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/gifti-reader.js') }}"></script>
+<script src="{{url_for('static', filename='js/lib/GLU.js') }}"></script>
+<script src="{{url_for('static', filename='js/constants.js') }}"></script>
+<script src="{{url_for('static', filename='js/utilities/array-utils.js') }}"></script>
+<script src="{{url_for('static', filename='js/utilities/math-utils.js') }}"></script>
+<script src="{{url_for('static', filename='js/utilities/object-utils.js') }}"></script>
+<script src="{{url_for('static', filename='js/utilities/platform-utils.js') }}"></script>
+<script src="{{url_for('static', filename='js/utilities/string-utils.js') }}"></script>
+<script src="{{url_for('static', filename='js/utilities/url-utils.js') }}"></script>
+<script src="{{url_for('static', filename='js/core/coordinate.js') }}"></script>
+<script src="{{url_for('static', filename='js/core/point.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/header.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/imagedata.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/imagedescription.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/imagedimensions.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/imagerange.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/imagetype.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/nifti/header-nifti.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/dicom/header-dicom.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/orientation.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/transform.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/volume.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/voxeldimensions.js') }}"></script>
+<script src="{{url_for('static', filename='js/volume/voxelvalue.js') }}"></script>
+<script src="{{url_for('static', filename='js/surface/surface.js') }}"></script>
+<script src="{{url_for('static', filename='js/surface/surface-gifti.js') }}"></script>
+<script src="{{url_for('static', filename='js/surface/surface-mango.js') }}"></script>
+<script src="{{url_for('static', filename='js/surface/surface-vtk.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/dialog.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/menu.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/menuitem.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/menuitemcheckbox.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/menuitemradiobutton.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/menuitemfilechooser.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/menuitemrange.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/menuitemslider.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/menuitemspacer.js') }}"></script>
+<script src="{{url_for('static', filename='js/ui/toolbar.js') }}"></script>
+<script src="{{url_for('static', filename='js/viewer/atlas.js') }}"></script>
+<script src="{{url_for('static', filename='js/viewer/colortable.js') }}"></script>
+<script src="{{url_for('static', filename='js/viewer/display.js') }}"></script>
+<script src="{{url_for('static', filename='js/viewer/preferences.js') }}"></script>
+<script src="{{url_for('static', filename='js/viewer/screenslice.js') }}"></script>
+<script src="{{url_for('static', filename='js/viewer/screensurface.js') }}"></script>
+<script src="{{url_for('static', filename='js/viewer/screenvol.js') }}"></script>
+<script src="{{url_for('static', filename='js/viewer/viewer.js') }}"></script>
+<script src="{{url_for('static', filename='js/main.js') }}"></script>
+<script src="{{url_for('static', filename='js/FileSaver.js') }}"></script>
+<script src="{{url_for('static', filename='js/reg.js') }}"></script>
+<!-- JS debug end -->
+
+<script type="text/javascript">
+    /* DO NOT EDIT (start) -- papayaLoadableImages is generated by papaya-builder and is here for debugging purposes only */
+    var papayaLoadableImages = [
+        { nicename: "Sample Image", name: "sample_image", url: "data/sample_image.nii.gz" },
+        { nicename: "Atlas", name: "Talairach_labels_1mm", hide: true }
+    ];
+    /* DO NOT EDIT (end) */
+</script>
+<script src=" {{ url_for('static', filename='js/video_paralax.js' ) }}"></script>
+<!-- BB -->
+
+
+
+</html>

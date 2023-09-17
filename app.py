@@ -8,15 +8,86 @@ import numpy as np
 import tempfile
 import matplotlib.pyplot as plt
 import io
+import voxelmorph as vxm
+import neurite as ne
+import random
+# imports
+import os, sys
+
+# third party imports
+import numpy as np
+import tensorflow as tf
+assert tf.__version__.startswith('2.'), 'This tutorial assumes Tensorflow 2.0+'
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+
+# ************************************************************************************
+# ************************************************************************************
+# ***************************************************Define the model 
+
+vol_shape = (176, 176, 128)
+
+print(vol_shape)
+nb_features = [
+    [16, 32, 32, 32],
+    [32, 32, 32, 32, 32, 16, 16]
+]
+vxm_model_mse = vxm.networks.VxmDense(vol_shape, nb_features, int_steps=0)
+vxm_model_ncc = vxm.networks.VxmDense(vol_shape, nb_features, int_steps=0)
+vxm_model_mse.load_weights('templates/saved_model/vmx_mse_09v2.h5')
+vxm_model_ncc.load_weights('templates/saved_model/vmx_09v2.h5')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app = Flask(__name__, static_folder="src/static")
 PATH = '';
 name  ='';
 
+
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index2.html')
+@app.route('/registration')
+def registration():
+    return render_template('registration.html')
 
+@app.route('/segmentation')
+def segmentation():
+    return render_template('segmentation.html')
 
 @app.route('/get_image', methods=['GET'])
 def GETG():
@@ -31,18 +102,28 @@ def upload_files():
     
     file = request.files['ImageFixed']
     file.save(os.path.join('templates/uploads/Fixed', file.filename))
-    ff = nib.load(os.path.join('templates/uploads/Fixed', file.filename))
-    print(ff.shape[2])
+    img_fx = nib.load(os.path.join('templates/uploads/Fixed', file.filename)).get_fdata()
 
     file1 = request.files['ImageMoving']
     file1.save(os.path.join('templates/uploads/Moving', file1.filename))
-    ff1 = nib.load(os.path.join('templates/uploads/Moving', file1.filename))
-    print(ff1.shape[2])
+    img_mv = nib.load(os.path.join('templates/uploads/Moving', file1.filename)).get_fdata()
+
+    in_sample = get_sample(img_mv, img_fx)
+    print("********************************** Start predicting *************************")
+
+    val_p = vxm_model_mse.predict(in_sample)
+    val_p2 = val_p[0][0, :, :, :]
+   
+
+    reversed_mv_data = val_p2[::, ::-1, ::]
+    nifti_img = nib.Nifti1Image(reversed_mv_data, affine=None)
+    
+
     global PATH
     global name 
-    PATH = os.path.join('templates/uploads/Moving', file1.filename)
-    name = file1.filename
-    print('-----------------------------------',PATH)
+    PATH = os.path.join('templates/uploads/moved', 'predicted_'+file.filename)
+    nib.save(nifti_img,PATH )
+    print('-------------------the image is saved in path----------------',PATH)
     return "" , 200
 
 @app.route('/get_registered_image_json', methods=['GET'])
@@ -67,79 +148,78 @@ def get_registered_image_json():
     # Send the JSON response
     return json.dumps(response_json)
 
+# ************************************************************************************
+# ************************************************************************************
+# *******************************************************function 
+def get_sample(mv,fx):
+    mv_images =[]
+    fx_images =[]
+    image_mv=mv
+    image_fx=fx
+    # image_mv=scaler.fit_transform(image_mv.reshape(-1, image_mv.shape[-1])).reshape(image_mv.shape)
+    # image = image[56:184, 32:208, 13:141]
+    mv_images.append(image_mv)
+    print("Done Loading moving image ..........!!!!! with shape ",image_mv.shape)
+    # image_fx=scaler.fit_transform(image_fx.reshape(-1, image_fx.shape[-1])).reshape(image_fx.shape)
+    image_fx = image_fx[32:208, 32:208, 13:141]
+    fx_images.append(image_fx)
+    print("Done Loading Fixed image ..........!!!!! with shape ",image_fx.shape)
+
+    return([np.array(mv_images) ,np.array(fx_images)])
+# ************************************************************************************
+# ************************************************************************************
+# ************************************************************************************
+# ************************************************************************************
+# ************************************************************************************
+# ************************************************************************************
+# ************************************************** Segmentation  
+# ************************************************************************************
+# ************************************************************************************
+@app.route('/seg_upload', methods=['POST'])
+def upload_seg():
+    if 'ImageSeg' not in request.files :
+        return 'ImageSeg file part in the request.'
+    
+    file = request.files['ImageSeg']
+    print(file.filename[:17])
+    print("************************* here we go again")
+    file.save(os.path.join('templates/uploads/seg', file.filename))
+    ff = nib.load(os.path.join('templates/uploads/seg', file.filename))
+    print(ff.shape[2])
+
+    # file1 = request.files['ImageMoving']
+    # file1.save(os.path.join('templates/uploads/Moving', file1.filename))
+    # ff1 = nib.load(os.path.join('templates/uploads/Moving', file1.filename))
+    # print(ff1.shape[2])
+    global PATH
+    global name 
+    PATH = os.path.join('templates/uploads/seg', ff.filename)
+    # name = file1.filename
+    # print('-----------------------------------',PATH)
+    return "here i am" , 200
+
+@app.route('/get_segmented_image_json', methods=['GET'])
+def get_segmented_image_json():
+    # Load the .nii.gz file from the server (replace 'path_to_image' with the actual path)
+    image_path = PATH
+    # Read the file data as bytes
+    with open(image_path, 'rb') as f:
+        image_data = f.read()
+
+    # Encode the file data as a base64 string
+    # base64_data = image_data.encode('base64').replace('\n', '')
+    base64_data = base64.b64encode(image_data).decode('utf-8')  # Convert bytes to str
 
 
+    # Create a JSON object with the file data
+    response_json = {
+        'filename': name,
+        'data': base64_data
+    }
+    print ( "goooooooooooooooooooooooood with segmentation ")
+    # Send the JSON response
+    return json.dumps(response_json)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # nifti_data_base64 = base64.b64encode(ff1).decode('utf-8')
-    # print(nifti_data_base64)
-    # return jsonify(processed_data=file1.filename)
-
-
-    # return send_file(ff1, mimetype='application/gzip')
-    # v1 = file.filename
-    # v2 =  'bel3id2'
-    # v3 =  'bel3id3'
-
-    # return render_template('index.html', v1=v1 , v2=v2, v3=v3)
-
-
-# @app.route('/load', methods=['POST'])
-# def load():
-#     file_path = request.form['file_path']
-
-#     # Validate the file path and check if it exists
-#     if not os.path.isfile(file_path):
-#         return jsonify({'success': False, 'message': 'Invalid file path'})
-
-#     return jsonify({'success': True})
-
-# @app.route('/get_num_slices', methods=['POST'])
-# def get_num_slices():
-#     # file = request.form.get('file')
-#     file = request.data
-#     print("**********")
-#     print(type(file))
-
-#     nifti_image = nib.load(file)
-
-#     # Extract the number of slices
-#     num_slices = file.shape[2]
-#     print("**************")
-#     print(num_slices)
-#     return jsonify({'success': True, 'num_slices': num_slices})
-
-# @app.route('/get_slice', methods=['GET'])
-# def get_slice():
-#     print("start getting clices ")
-
-#     slice_index = int(request.args.get('index'))
-#     file = request.args.get('file')
-
-#     # nii_data = file
-#     # data_array = nii_data.get_fdata()
-#     slice_data = file[:, :, slice_index]
-#     slice_data_normalized = (slice_data - np.min(slice_data)) / (np.max(slice_data) - np.min(slice_data)) * 255
-
-#     # Save the slice data as a temporary image file
-#     with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp_img:
-#         plt.imsave(temp_img.name, slice_data_normalized, cmap='gray', format='png')
-
-#     return send_file(temp_img.name, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(debug=True)
