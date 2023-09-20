@@ -34,8 +34,10 @@ nb_features = [
 ]
 vxm_model_mse = vxm.networks.VxmDense(vol_shape, nb_features, int_steps=0)
 vxm_model_ncc = vxm.networks.VxmDense(vol_shape, nb_features, int_steps=0)
+vxm_model_multiple = vxm.networks.VxmDense(vol_shape, nb_features, int_steps=0)
 vxm_model_mse.load_weights('templates/saved_model/vmx_mse_09v2.h5')
 vxm_model_ncc.load_weights('templates/saved_model/vmx_09v2.h5')
+vxm_model_multiple.load_weights('templates/saved_model/vmx_multiple_09.h5')
 
 
 
@@ -89,6 +91,10 @@ def registration():
 def segmentation():
     return render_template('segmentation.html')
 
+@app.route('/multi_modal')
+def multi_modal():
+    return render_template('multi_modal.html')
+
 @app.route('/get_image', methods=['GET'])
 def GETG():
 
@@ -109,11 +115,17 @@ def upload_files():
     img_mv = nib.load(os.path.join('templates/uploads/Moving', file1.filename)).get_fdata()
 
     in_sample = get_sample(img_mv, img_fx)
-    print("********************************** Start predicting *************************")
-
-    val_p = vxm_model_mse.predict(in_sample)
+    
+    print("**********************************",file.filename[16:21])
+    if (file.filename[16:21]=='flair'): 
+            print("********************************** Start Unimodal Prediction *************************")
+            val_p = vxm_model_mse.predict(in_sample)
+            
+    if (file.filename[16:21]=='t1ce.'): 
+            print("********************************** Start Multi-modal Prediction *************************")
+            val_p = vxm_model_multiple.predict(in_sample)
+                   
     val_p2 = val_p[0][0, :, :, :]
-   
 
     reversed_mv_data = val_p2[::, ::-1, ::]
     nifti_img = nib.Nifti1Image(reversed_mv_data, affine=None)
@@ -161,7 +173,7 @@ def get_sample(mv,fx):
     mv_images.append(image_mv)
     print("Done Loading moving image ..........!!!!! with shape ",image_mv.shape)
     # image_fx=scaler.fit_transform(image_fx.reshape(-1, image_fx.shape[-1])).reshape(image_fx.shape)
-    image_fx = image_fx[32:208, 32:208, 13:141]
+    # image_fx = image_fx[32:208, 32:208, 13:141]
     fx_images.append(image_fx)
     print("Done Loading Fixed image ..........!!!!! with shape ",image_fx.shape)
 
@@ -177,15 +189,15 @@ def get_sample(mv,fx):
 # ************************************************************************************
 @app.route('/seg_upload', methods=['POST'])
 def upload_seg():
-    if 'ImageSeg' not in request.files :
-        return 'ImageSeg file part in the request.'
+    if 'ImageFixed' not in request.files :
+        return 'ImageFixed file part in the request.'
     
-    file = request.files['ImageSeg']
+    file = request.files['ImageFixed']
     print(file.filename[:17])
     print("************************* here we go again")
-    file.save(os.path.join('templates/uploads/seg', file.filename))
-    ff = nib.load(os.path.join('templates/uploads/seg', file.filename))
-    print(ff.shape[2])
+    # file.save(os.path.join('templates/uploads/seg', 'seg_'+file.filename))
+    # ff = nib.load(os.path.join('templates/uploads/seg', file.filename[:15]+'_seg.nii.gz'))
+    # print(ff.shape[2])
 
     # file1 = request.files['ImageMoving']
     # file1.save(os.path.join('templates/uploads/Moving', file1.filename))
@@ -193,33 +205,43 @@ def upload_seg():
     # print(ff1.shape[2])
     global PATH
     global name 
-    PATH = os.path.join('templates/uploads/seg', ff.filename)
+    PATH = 'templates/uploads/seg/'+ file.filename[:15]+'_seg.nii.gz'
+    name = file.filename 
     # name = file1.filename
-    # print('-----------------------------------',PATH)
+    print(" I am in seg_upload")
+    print('-----------------------------------',PATH)
     return "here i am" , 200
 
 @app.route('/get_segmented_image_json', methods=['GET'])
 def get_segmented_image_json():
     # Load the .nii.gz file from the server (replace 'path_to_image' with the actual path)
-    image_path = PATH
+    
+    image_path_1 = 'C:/Users/hp/Downloads/Test/flair/'+name
+    image_path_2 = PATH
     # Read the file data as bytes
-    with open(image_path, 'rb') as f:
-        image_data = f.read()
 
-    # Encode the file data as a base64 string
-    # base64_data = image_data.encode('base64').replace('\n', '')
-    base64_data = base64.b64encode(image_data).decode('utf-8')  # Convert bytes to str
-
+    data1=get_data(image_path_1)
+    data2=get_data(image_path_2)
+   
 
     # Create a JSON object with the file data
     response_json = {
         'filename': name,
-        'data': base64_data
+        'data1': data1,
+        'data2': data2
+
     }
     print ( "goooooooooooooooooooooooood with segmentation ")
     # Send the JSON response
     return json.dumps(response_json)
 
+def get_data(emp):
+    with open(emp, 'rb') as f:
+        image_data = f.read()
+
+    # Encode the file data as a base64 string
+    # base64_data = image_data.encode('base64').replace('\n', '')
+    return base64.b64encode(image_data).decode('utf-8')  # Convert bytes to str
 
 if __name__ == '__main__':
     app.run(debug=True)

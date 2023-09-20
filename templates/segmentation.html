@@ -93,6 +93,8 @@
                             <li class="nav-item "><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
                             <li class="nav-item "><a href="{{ url_for('registration') }}"
                                     class="nav-link">Registration</a></li>
+                            <li class="nav-item "><a href="{{ url_for('multi_modal') }}"
+                                    class="nav-link">Multi-modal Registration </a></li>
                             <li class="nav-item active"><a href="{{ url_for('segmentation')}}"
                                     class="nav-link">Segmentation</a></li>
                             <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
@@ -133,10 +135,10 @@
 
 
         <div class="wideview">
-            <div class="container">
-                <form id="segForm" enctype="multipart/form-data">
+            <div class="container text-center">
+                <form class="" id="segForm" enctype="multipart/form-data">
                     <div class="row g-3">
-                        <div class="col-12 col-md-6 col-lg-8">
+                        <div class="col-12 col-md-6 col-lg-8 mx-auto">
                             <div class="card">
                                 <div class="card-header title">
                                     <h1>Segmentation image</h1>
@@ -145,13 +147,15 @@
                                     <div class="papaya" data-params="params">
                                     </div>
                                     <div class="my-4"></div>
-                                    <button id="swap-slice" class="papaya-main-swap" type="button" ">Swap Main Slice</button>
+                                    <button id="swap-seg" class="papaya-main-swap" type="button"
+                                        style="display: block; top: 475px; left: 700px; position: relative;">Swap Main
+                                        Slice</button>
 
                                 </div>
                                 <div class=" dropzone">
-                                        <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
-                                        <input type="file" class="upload-input" id="ImageFixed" name="ImageFixed"
-                                            accept=".nii*" multiple>
+                                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                    <input type="file" class="upload-input" id="ImageFixed" name="ImageFixed"
+                                        accept=".nii*" multiple>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +176,7 @@
             <a href="https://github.com/OUBRAYME-MUSTAFA"><i class="svg-icon github"></i></a>
             <a href="https://www.linkedin.com/in/mustafa-oubrayme-058238171"><i class="svg-icon linkedin"></i></a>
             <!-- <a href="https://youtube.com/channel/UCflrd69yRzRqAdk1ZMSSmug"><i class="svg-icon youtube"></i></a> -->
-    
+
         </footer> -->
     </div>
 

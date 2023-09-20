@@ -93,6 +93,8 @@
                             <li class="nav-item "><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
                             <li class="nav-item active"><a href="{{ url_for('registration') }}"
                                     class="nav-link">Registration</a></li>
+                            <li class="nav-item "><a href="{{ url_for('multi_modal') }}"
+                                    class="nav-link">Multi-modal Registration </a></li>
                             <li class="nav-item"><a href="{{ url_for('segmentation')}}"
                                     class="nav-link">Segmentation</a></li>
                             <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
@@ -138,7 +140,7 @@
             <div class="container">
                 <form id="imageForm" enctype="multipart/form-data">
                     <div class="row g-3">
-                        <div class="col-4 col-md-2 col-lg-4">
+                        <div class="col-4 col-md-2 col-lg-4 mx-auto">
                             <div class="card">
                                 <div class="card-header title">
                                     <h1>Fixed image</h1>
@@ -155,7 +157,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 col-md-6 col-lg-4">
+                        <div class="col-4 col-md-6 col-lg-4 mx-auto">
                             <div class="card">
                                 <div class="card-header title">
                                     <h1>Moving image</h1>
@@ -171,7 +173,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 col-md-6 col-lg-4" id="Predict">
+                        <div class="col-4 col-md-6 col-lg-4 mx-auto" id="Predict">
                             <div class="card">
                                 <div class="card-header title">
                                     <h1>Predicted image</h1>
@@ -181,8 +183,7 @@
                                 </div>
                                 <div class="my-4"></div>
 
-                                <button type=" button" class="btn btn-outline-green" id="dd"
-                                    name="dd">Download</button>
+                                <button type=" button" class="btn btn-outline-green" id="dd" name="dd">Download</button>
                             </div>
 
                         </div>
@@ -202,10 +203,11 @@
                         </div>
 
                     </div> -->
-                    <!-- <div class=" ">
+                    <div>
                         <button id="increase_slice" type="button" ">Increase Slice</button>
-                </div> -->
-                    <div class="my-4"></div>
+                </div>
+                    <div class=" my-4">
+                    </div>
                     <div class=" ">
                         <button id="swap_slice" class="papaya-main-swap" type="button" ">Swap Main Slice</button>
                 </div>

@@ -83,6 +83,8 @@
                             <li class="nav-item active"><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
                             <li class="nav-item"><a href="{{ url_for('registration') }}"
                                     class="nav-link">Registration</a></li>
+                            <li class="nav-item "><a href="{{ url_for('multi_modal') }}"
+                                    class="nav-link">Multi-modal Registration </a></li>
                             <li class="nav-item"><a href="{{ url_for('segmentation')}}"
                                     class="nav-link">Segmentation</a></li>
                             <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
@@ -157,28 +159,28 @@
         <div class="wideview">
             <div class="container">
                 <div class="row g-3">
-                    <div class="col-2 col-md-6 col-lg-4">
+                    <div class="col-2 col-md-6 col-lg-4 mx-auto">
                         <div class="card">
-                            <img src="{{ url_for('static', filename='images/reg.png') }}" class="card-img-top">
+                            <img src="{{ url_for('static', filename='images/reg2.png') }}" class="card-img-top">
                             <div class="card-body">
                                 <p class="card-text">Some quick example text to build on the card title and make up the
                                     bulk of the card's content.</p>
-                            
-                            <a href="{{ url_for('registration') }}" class="btn btn-primary">Start Registration</a>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="col-2  col-lg-4">
-                        <div class="card" x>
-                            <img src="{{ url_for('static', filename='images/reg.png') }}" class="card-img-top">
-                            <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
-                                    <a href="{{ url_for('segmentation') }}" class="btn btn-primary">Start Segmentation</a>
+
+                                <a href="{{ url_for('registration') }}" class="btn btn-primary">Start Registration</a>
                             </div>
                         </div>
                     </div>
-                   
+                    <div class="col-2  col-lg-4 mx-auto">
+                        <div class="card">
+                            <img src="{{ url_for('static', filename='images/SEG.png') }}" class="card-img-top">
+                            <div class="card-body">
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the card's content.</p>
+                                <a href="{{ url_for('segmentation') }}" class="btn btn-primary">Start Segmentation</a>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
             </div>

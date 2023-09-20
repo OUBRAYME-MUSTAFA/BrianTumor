@@ -23,6 +23,7 @@ $(document).ready(function () {
 
                 // Set the new slice index, ensuring it doesn't go beyond the maximum
                 viewer.gotoCoordinate(newSlice, true);
+                viewer.drawViewer(true);
             }
         }
     });
