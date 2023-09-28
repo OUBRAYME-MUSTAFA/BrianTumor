@@ -83,8 +83,8 @@
                             <li class="nav-item active"><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
                             <li class="nav-item"><a href="{{ url_for('registration') }}"
                                     class="nav-link">Registration</a></li>
-                            <li class="nav-item "><a href="{{ url_for('multi_modal') }}"
-                                    class="nav-link">Multi-modal Registration </a></li>
+                            <li class="nav-item "><a href="{{ url_for('multi_modal') }}" class="nav-link">Multi-modal
+                                    Registration </a></li>
                             <li class="nav-item"><a href="{{ url_for('segmentation')}}"
                                     class="nav-link">Segmentation</a></li>
                             <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
@@ -163,10 +163,14 @@
                         <div class="card">
                             <img src="{{ url_for('static', filename='images/reg2.png') }}" class="card-img-top">
                             <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
+                                <p class="card-text">Some quick example to test Medical Image Registration.</p>
 
-                                <a href="{{ url_for('registration') }}" class="btn btn-primary">Start Registration</a>
+                                <a href="{{ url_for('registration') }}" class="btn btn-primary">Unimodal
+                                    Registration</a>
+                                <div class="my-4"></div>
+
+                                <a href="{{ url_for('multi_modal') }}" class="btn btn-primary">Multi-modal
+                                    Registration</a>
                             </div>
                         </div>
                     </div>
@@ -174,8 +178,7 @@
                         <div class="card">
                             <img src="{{ url_for('static', filename='images/SEG.png') }}" class="card-img-top">
                             <div class="card-body">
-                                <p class="card-text">Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.</p>
+                                <p class="card-text">Some quick example to test Medical Image Segmentation.</p>
                                 <a href="{{ url_for('segmentation') }}" class="btn btn-primary">Start Segmentation</a>
                             </div>
                         </div>

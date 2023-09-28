@@ -215,8 +215,11 @@ def upload_seg():
 @app.route('/get_segmented_image_json', methods=['GET'])
 def get_segmented_image_json():
     # Load the .nii.gz file from the server (replace 'path_to_image' with the actual path)
-    
-    image_path_1 = 'C:/Users/hp/Downloads/Test/flair/'+name
+    if name[16:21]=='flair':
+        image_path_1 = 'C:/Users/hp/Downloads/Test/flair/'+name
+    if name[16:21]=='t1ce.':
+        image_path_1 = 'C:/Users/hp/Downloads/Test/t1ce/'+name
+
     image_path_2 = PATH
     # Read the file data as bytes
 

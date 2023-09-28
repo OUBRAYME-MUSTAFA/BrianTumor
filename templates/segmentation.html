@@ -93,8 +93,8 @@
                             <li class="nav-item "><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
                             <li class="nav-item "><a href="{{ url_for('registration') }}"
                                     class="nav-link">Registration</a></li>
-                            <li class="nav-item "><a href="{{ url_for('multi_modal') }}"
-                                    class="nav-link">Multi-modal Registration </a></li>
+                            <li class="nav-item "><a href="{{ url_for('multi_modal') }}" class="nav-link">Multi-modal
+                                    Registration </a></li>
                             <li class="nav-item active"><a href="{{ url_for('segmentation')}}"
                                     class="nav-link">Segmentation</a></li>
                             <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
@@ -161,8 +161,15 @@
                         </div>
                     </div>
                     <div class="my-4"></div>
+                    <div class=" ">
+                        <button id="swap_slice" class="papaya-main-swap" type="button" ">Swap Main Slice</button>
+                </div>
+                <div class=" my-4">
+                    <div class=" row d-flex justify-content-center align-content-center ">
 
-                    <button type="button" class="btn" id="segmentation" name="segmentation">Submit</button>
+                        <button type="button" class="btn btn-outline-success" id="segmentation"
+                            name="segmentation">Submit</button>
+                    </div>
                 </form>
             </div>
 

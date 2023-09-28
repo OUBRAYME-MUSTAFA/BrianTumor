@@ -7,6 +7,7 @@ $(document).ready(function () {
         papayaContainers[0].viewer.rotateViews();
         papayaContainers[1].viewer.rotateViews();
         papayaContainers[2].viewer.rotateViews();
+        papayaContainers[3].viewer.rotateViews();
     });
     $("#increase_slice").click(function () {
         // Loop through each Papaya viewer container
@@ -122,8 +123,13 @@ $(document).ready(function () {
         myFunction($("#fix"));
         handleFileSelect(evt, 0); // Pass viewerId 0 for the first                 
     }, false);
+    // document.getElementById('Original').addEventListener('change', function (evt) {
+    //     myFunction($("#origi"));
+    //     handleFileSelect(evt, 3); // Pass viewerId 0 for the first                 
+    // }, false);
 
     document.getElementById('ImageMoving').addEventListener('change', function (evt) {
+        console.log("I am choosing the moving ")
         myFunction($("#moving"));
         handleFileSelect(evt, 1); // Pass viewerId 1 for the second 
 

@@ -91,10 +91,11 @@
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item "><a href="{{ url_for('index') }}" class="nav-link">Home</a></li>
-                            <li class="nav-item active"><a href="{{ url_for('registration') }}"
-                                    class="nav-link">Registration</a></li>
+                            <li class="nav-item "><a href="{{ url_for('registration') }}"
+                                    class="nav-link active">Registration</a></li>
                             <li class="nav-item "><a href="{{ url_for('multi_modal') }}"
                                     class="nav-link">Multi-modal Registration </a></li>
+
                             <li class="nav-item"><a href="{{ url_for('segmentation')}}"
                                     class="nav-link">Segmentation</a></li>
                             <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
@@ -127,7 +128,7 @@
 
             <div class="site-info">
 
-                <p>Brain Tumor Voxelmorph Image Registration </p>
+                <p>Brain Tumor Voxelmorph Multi-Modal Image Registration </p>
             </div>
 
 
@@ -183,8 +184,48 @@
                                 </div>
                                 <div class="my-4"></div>
 
-                                <button type=" button" class="btn btn-outline-green" id="dd" name="dd">Download</button>
+                                <!-- <button type=" button" class="btn btn-outline-green" id="dd"
+                                    name="dd">Download</button> -->
                             </div>
+
+                        </div>
+                    </div>
+                    <div class="my-4"></div>
+                    <div class="row g-3" id="Predict">
+                        <div class="col-4 col-md-6 col-lg-4 mx-auto">
+                            <div class="card">
+                                <div class="card-header title">
+                                    <h1>Predicted image</h1>
+                                </div>
+                                <div>
+                                    <div class="papaya" data-params="params"></div>
+                                </div>
+                                <div class="my-4"></div>
+
+                                <!-- <button type=" button" class="btn btn-outline-green" id="dd"
+                                    name="dd">Download</button> -->
+                            </div>
+
+                        </div>
+                        <div class="col-4 col-md-6 col-lg-4 mx-auto">
+                            <!-- <div class="card">
+                                <div class="card-header title">
+                                    <h1>Original image</h1>
+                                </div>
+                                <div id="origi">
+                                    <div>
+                                        <div class="papaya" data-params="params"></div>
+                                    </div>
+                                </div>
+                                <div class=" dropzone">
+                                    <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
+                                    <input type="file" class="upload-input" id="Original" name="Original" accept=".nii*"
+                                        multiple>
+                                </div>
+                                <div class="my-4"></div>
+
+
+                            </div> -->
 
                         </div>
                     </div>
@@ -203,9 +244,9 @@
                         </div>
 
                     </div> -->
-                    <div>
+                    <!-- <div>
                         <button id="increase_slice" type="button" ">Increase Slice</button>
-                </div>
+                    </div> -->
                     <div class=" my-4">
                     </div>
                     <div class=" ">
