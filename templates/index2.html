@@ -69,9 +69,8 @@
     <div class="wrapper-masthead">
         <header class="masthead clearfix">
             <a name="Top"></a>
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top ftco_navbar bg-dark ftco-navbar-light"
-                id="ftco-navbar">
-                <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top ">
+                <div class="container ">
                     <a class="navbar-brand" href="{{ url_for('index') }}"><span
                             class="flaticon-pizza-1 mr-1"></span>PFE<br></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
@@ -85,8 +84,8 @@
                                     class="nav-link">Registration</a></li>
                             <li class="nav-item "><a href="{{ url_for('multi_modal') }}" class="nav-link">Multi-modal
                                     Registration </a></li>
-                            <li class="nav-item"><a href="{{ url_for('segmentation')}}"
-                                    class="nav-link">Segmentation</a></li>
+                            <!-- <li class="nav-item"><a href="{{ url_for('segmentation')}}"
+                                    class="nav-link">Segmentation</a></li> -->
                             <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
                       <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                       <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li> -->
@@ -167,10 +166,10 @@
 
                                 <a href="{{ url_for('registration') }}" class="btn btn-primary">Unimodal
                                     Registration</a>
-                                <div class="my-4"></div>
+                                <!-- <div class="my-4"></div>
 
                                 <a href="{{ url_for('multi_modal') }}" class="btn btn-primary">Multi-modal
-                                    Registration</a>
+                                    Registration</a> -->
                             </div>
                         </div>
                     </div>
@@ -178,8 +177,8 @@
                         <div class="card">
                             <img src="{{ url_for('static', filename='images/SEG.png') }}" class="card-img-top">
                             <div class="card-body">
-                                <p class="card-text">Some quick example to test Medical Image Segmentation.</p>
-                                <a href="{{ url_for('segmentation') }}" class="btn btn-primary">Start Segmentation</a>
+                                <p class="card-text">Some quick example to test Multi-modal Medical Image Registration</p>
+                                <a href="{{ url_for('multi_modal') }}" class="btn btn-primary">Start Registration</a>
                             </div>
                         </div>
                     </div>
